@@ -5,11 +5,15 @@
 
 #define TRIGGER_PIN  PB0  // define trigger pin as PB0 (pin 8)
 #define ECHO_PIN     PB1  // define echo pin as PB1 (pin 9)
+#define LED_PIN      PD3  // define LED pin as PD3 (pin 3)
 
 void init() {
 	// set trigger pin as output and echo pin as input
 	DDRB |= (1 << TRIGGER_PIN);
 	DDRB &= ~(1 << ECHO_PIN);
+
+	// set LED pin as output
+	DDRD |= (1 << LED_PIN);
 
 	// set timer1 prescaler to 8 and enable overflow interrupt
 	TCCR1B |= (1 << CS11);
@@ -21,7 +25,7 @@ void init_uart(void);
 int main(void) {
 	uint16_t time_us;
 	uint32_t distance_cm = 0;
-	uint32_t prev_distance_cm = 100;
+	uint32_t prev_distance_cm = 0;
 	(void)time_us; // suppress unused variable warning
 	char buffer[20];
 	(void)buffer; // suppress unused variable warning
@@ -60,7 +64,12 @@ int main(void) {
 		// check if the difference between the current distance and the previous
 		// distance is greater than a threshold (10 cm in this case)
 		if (abs(distance_cm - prev_distance_cm) > 10) {
+			// turn on the LED
+			PORTD |= (1 << LED_PIN);
 			printf("MOVEMENT");
+			} else {
+			// turn off the LED
+			PORTD &= ~(1 << LED_PIN);
 		}
 
 		// update the previous distance with the current distance
