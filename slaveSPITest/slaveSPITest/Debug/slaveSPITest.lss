@@ -1,0 +1,343 @@
+
+slaveSPITest.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000038  00800100  000001a4  00000238  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000001a4  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000007  00800138  00800138  00000270  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000270  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000002a0  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000068  00000000  00000000  000002dc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000af1  00000000  00000000  00000344  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 0000089c  00000000  00000000  00000e35  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000003c4  00000000  00000000  000016d1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000000a8  00000000  00000000  00001a98  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000045f  00000000  00000000  00001b40  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000000c1  00000000  00000000  00001f9f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000060  00000000  00000000  00002060  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   8:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  10:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  14:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  18:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  1c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  20:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  24:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  28:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  2c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  30:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  34:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  38:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  3c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  40:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  44:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  48:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  4c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  50:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  54:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  58:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  5c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  60:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  64:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_copy_data>:
+  74:	11 e0       	ldi	r17, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	e4 ea       	ldi	r30, 0xA4	; 164
+  7c:	f1 e0       	ldi	r31, 0x01	; 1
+  7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
+  80:	05 90       	lpm	r0, Z+
+  82:	0d 92       	st	X+, r0
+  84:	a8 33       	cpi	r26, 0x38	; 56
+  86:	b1 07       	cpc	r27, r17
+  88:	d9 f7       	brne	.-10     	; 0x80 <__do_copy_data+0xc>
+
+0000008a <__do_clear_bss>:
+  8a:	21 e0       	ldi	r18, 0x01	; 1
+  8c:	a8 e3       	ldi	r26, 0x38	; 56
+  8e:	b1 e0       	ldi	r27, 0x01	; 1
+  90:	01 c0       	rjmp	.+2      	; 0x94 <.do_clear_bss_start>
+
+00000092 <.do_clear_bss_loop>:
+  92:	1d 92       	st	X+, r1
+
+00000094 <.do_clear_bss_start>:
+  94:	af 33       	cpi	r26, 0x3F	; 63
+  96:	b2 07       	cpc	r27, r18
+  98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
+  9a:	0e 94 70 00 	call	0xe0	; 0xe0 <main>
+  9e:	0c 94 d0 00 	jmp	0x1a0	; 0x1a0 <_exit>
+
+000000a2 <__bad_interrupt>:
+  a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000a6 <USART_init>:
+
+static void
+USART_init(uint16_t ubrr) // unsigned int
+{
+    /* Set baud rate in the USART Baud Rate Registers (UBRR) */
+    UBRR0H = (unsigned char) (ubrr >> 8);
+  a6:	90 93 c5 00 	sts	0x00C5, r25	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7f80c5>
+    UBRR0L = (unsigned char) ubrr;
+  aa:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7f80c4>
+    
+    /* Enable receiver and transmitter on RX0 and TX0 */
+    UCSR0B |= (1 << RXEN0) | (1 << TXEN0); //NOTE: the ATmega328p has 1 UART: 0
+  ae:	e1 ec       	ldi	r30, 0xC1	; 193
+  b0:	f0 e0       	ldi	r31, 0x00	; 0
+  b2:	80 81       	ld	r24, Z
+  b4:	88 61       	ori	r24, 0x18	; 24
+  b6:	80 83       	st	Z, r24
+    
+    /* Set frame format: 8 bit data, 2 stop bit */
+    UCSR0C |= (1 << USBS0) | (3 << UCSZ00);
+  b8:	e2 ec       	ldi	r30, 0xC2	; 194
+  ba:	f0 e0       	ldi	r31, 0x00	; 0
+  bc:	80 81       	ld	r24, Z
+  be:	8e 60       	ori	r24, 0x0E	; 14
+  c0:	80 83       	st	Z, r24
+  c2:	08 95       	ret
+
+000000c4 <USART_Transmit>:
+
+static void
+USART_Transmit(unsigned char data, FILE *stream)
+{
+    /* Wait until the transmit buffer is empty*/
+    while(!(UCSR0A & (1 << UDRE0)))
+  c4:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+  c8:	95 ff       	sbrs	r25, 5
+  ca:	fc cf       	rjmp	.-8      	; 0xc4 <USART_Transmit>
+    {
+        ;
+    }
+    
+    /* Put the data into a buffer, then send/transmit the data */
+    UDR0 = data;
+  cc:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+  d0:	08 95       	ret
+
+000000d2 <USART_Receive>:
+
+static char
+USART_Receive(FILE *stream)
+{
+    /* Wait until the transmit buffer is empty*/
+    while(!(UCSR0A & (1 << UDRE0)))
+  d2:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+  d6:	85 ff       	sbrs	r24, 5
+  d8:	fc cf       	rjmp	.-8      	; 0xd2 <USART_Receive>
+    {
+        ;
+    }
+    
+    /* Get the received data from the buffer */
+    return UDR0;
+  da:	80 91 c6 00 	lds	r24, 0x00C6	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+}
+  de:	08 95       	ret
+
+000000e0 <main>:
+FILE uart_output = FDEV_SETUP_STREAM(USART_Transmit, NULL, _FDEV_SETUP_WRITE);
+FILE uart_input = FDEV_SETUP_STREAM(NULL, USART_Receive, _FDEV_SETUP_READ);
+
+int 
+main(void)
+{
+  e0:	cf 93       	push	r28
+  e2:	df 93       	push	r29
+  e4:	00 d0       	rcall	.+0      	; 0xe6 <main+0x6>
+  e6:	1f 92       	push	r1
+  e8:	cd b7       	in	r28, 0x3d	; 61
+  ea:	de b7       	in	r29, 0x3e	; 62
+    /* set MISO as output, pin 12 (PB4)*/
+    DDRB  = (1 << PB4);
+  ec:	80 e1       	ldi	r24, 0x10	; 16
+  ee:	84 b9       	out	0x04, r24	; 4
+    /* set SPI enable */
+    SPCR  = (1 << 6);
+  f0:	80 e4       	ldi	r24, 0x40	; 64
+  f2:	8c bd       	out	0x2c, r24	; 44
+    
+    // initialize the UART with 9600 BAUD
+    USART_init(MYUBRR);
+  f4:	87 e6       	ldi	r24, 0x67	; 103
+  f6:	90 e0       	ldi	r25, 0x00	; 0
+  f8:	0e 94 53 00 	call	0xa6	; 0xa6 <USART_init>
+        
+    // redirect the stdin and stdout to UART functions
+    stdout = &uart_output;
+  fc:	e9 e3       	ldi	r30, 0x39	; 57
+  fe:	f1 e0       	ldi	r31, 0x01	; 1
+ 100:	8e e0       	ldi	r24, 0x0E	; 14
+ 102:	91 e0       	ldi	r25, 0x01	; 1
+ 104:	93 83       	std	Z+3, r25	; 0x03
+ 106:	82 83       	std	Z+2, r24	; 0x02
+    stdin = &uart_input;
+ 108:	80 e0       	ldi	r24, 0x00	; 0
+ 10a:	91 e0       	ldi	r25, 0x01	; 1
+ 10c:	91 83       	std	Z+1, r25	; 0x01
+ 10e:	80 83       	st	Z, r24
+    
+    char spi_send_data[3] = "100";
+ 110:	81 e3       	ldi	r24, 0x31	; 49
+ 112:	90 e3       	ldi	r25, 0x30	; 48
+ 114:	9a 83       	std	Y+2, r25	; 0x02
+ 116:	89 83       	std	Y+1, r24	; 0x01
+ 118:	80 e3       	ldi	r24, 0x30	; 48
+ 11a:	8b 83       	std	Y+3, r24	; 0x03
+	//int spi_send_data = 1;
+    char spi_receive_data[20];
+	
+
+	    
+	init_uart();
+ 11c:	0e 94 bc 00 	call	0x178	; 0x178 <init_uart>
+	
+    /* send message to master and receive message from master */
+    while (1) 
+    {
+		if (movement == true){
+ 120:	80 91 38 01 	lds	r24, 0x0138	; 0x800138 <__data_end>
+ 124:	88 23       	and	r24, r24
+ 126:	e1 f3       	breq	.-8      	; 0x120 <main+0x40>
+ 128:	11 c0       	rjmp	.+34     	; 0x14c <main+0x6c>
+			  for(int8_t spi_data_index = 0; spi_data_index < sizeof(spi_send_data); spi_data_index++)
+			  {
+				  
+				  
+				  SPDR = spi_send_data[spi_data_index]; // send byte using SPI data register
+ 12a:	e1 e0       	ldi	r30, 0x01	; 1
+ 12c:	f0 e0       	ldi	r31, 0x00	; 0
+ 12e:	ec 0f       	add	r30, r28
+ 130:	fd 1f       	adc	r31, r29
+ 132:	e8 0f       	add	r30, r24
+ 134:	f1 1d       	adc	r31, r1
+ 136:	87 fd       	sbrc	r24, 7
+ 138:	fa 95       	dec	r31
+ 13a:	80 81       	ld	r24, Z
+ 13c:	8e bd       	out	0x2e, r24	; 46
+				  //SPDR = spi_send_data;
+				  
+				  
+				  while(!(SPSR & (1 << SPIF)))
+ 13e:	0d b4       	in	r0, 0x2d	; 45
+ 140:	07 fe       	sbrs	r0, 7
+ 142:	fd cf       	rjmp	.-6      	; 0x13e <main+0x5e>
+				  {
+					  /* wait until the transmission is complete */
+					  ;
+				  }
+				  spi_receive_data[spi_data_index] = SPDR; // receive byte from the SPI data register
+ 144:	8e b5       	in	r24, 0x2e	; 46
+	
+    /* send message to master and receive message from master */
+    while (1) 
+    {
+		if (movement == true){
+			  for(int8_t spi_data_index = 0; spi_data_index < sizeof(spi_send_data); spi_data_index++)
+ 146:	81 e0       	ldi	r24, 0x01	; 1
+ 148:	89 0f       	add	r24, r25
+ 14a:	01 c0       	rjmp	.+2      	; 0x14e <main+0x6e>
+ 14c:	80 e0       	ldi	r24, 0x00	; 0
+ 14e:	98 2f       	mov	r25, r24
+ 150:	83 30       	cpi	r24, 0x03	; 3
+ 152:	58 f3       	brcs	.-42     	; 0x12a <main+0x4a>
+ 154:	e5 cf       	rjmp	.-54     	; 0x120 <main+0x40>
+
+00000156 <uart_putchar>:
+FILE mystdin = FDEV_SETUP_STREAM(NULL, uart_getchar, _FDEV_SETUP_READ);
+/******************************************************************************
+******************************************************************************/
+int uart_putchar(char c, FILE *stream)
+{
+	loop_until_bit_is_set(UCSR0A, UDRE0);
+ 156:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 15a:	95 ff       	sbrs	r25, 5
+ 15c:	fc cf       	rjmp	.-8      	; 0x156 <uart_putchar>
+	UDR0 = c;
+ 15e:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+	return 0;
+}
+ 162:	80 e0       	ldi	r24, 0x00	; 0
+ 164:	90 e0       	ldi	r25, 0x00	; 0
+ 166:	08 95       	ret
+
+00000168 <uart_getchar>:
+/******************************************************************************
+******************************************************************************/
+int uart_getchar(FILE *stream)
+{
+	/* Wait until data exists. */
+	loop_until_bit_is_set(UCSR0A, RXC0);
+ 168:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 16c:	88 23       	and	r24, r24
+ 16e:	e4 f7       	brge	.-8      	; 0x168 <uart_getchar>
+	return UDR0;
+ 170:	80 91 c6 00 	lds	r24, 0x00C6	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+}
+ 174:	90 e0       	ldi	r25, 0x00	; 0
+ 176:	08 95       	ret
+
+00000178 <init_uart>:
+/******************************************************************************
+******************************************************************************/
+void init_uart(void)
+{
+	UCSR0B = (1<<RXEN0) | (1<<TXEN0);
+ 178:	88 e1       	ldi	r24, 0x18	; 24
+ 17a:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7f80c1>
+	UBRR0 = 103;  //With 16 MHz Crystal, 9600 baud = 103
+ 17e:	87 e6       	ldi	r24, 0x67	; 103
+ 180:	90 e0       	ldi	r25, 0x00	; 0
+ 182:	90 93 c5 00 	sts	0x00C5, r25	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7f80c5>
+ 186:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7f80c4>
+	stdout = &mystdout;
+ 18a:	e9 e3       	ldi	r30, 0x39	; 57
+ 18c:	f1 e0       	ldi	r31, 0x01	; 1
+ 18e:	8a e2       	ldi	r24, 0x2A	; 42
+ 190:	91 e0       	ldi	r25, 0x01	; 1
+ 192:	93 83       	std	Z+3, r25	; 0x03
+ 194:	82 83       	std	Z+2, r24	; 0x02
+	stdin = &mystdin;
+ 196:	8c e1       	ldi	r24, 0x1C	; 28
+ 198:	91 e0       	ldi	r25, 0x01	; 1
+ 19a:	91 83       	std	Z+1, r25	; 0x01
+ 19c:	80 83       	st	Z, r24
+ 19e:	08 95       	ret
+
+000001a0 <_exit>:
+ 1a0:	f8 94       	cli
+
+000001a2 <__stop_program>:
+ 1a2:	ff cf       	rjmp	.-2      	; 0x1a2 <__stop_program>
