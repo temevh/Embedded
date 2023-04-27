@@ -419,46 +419,46 @@ END GROUP
  *(.fini0)
                 0x000007a6                _etext = .
 
-.data           0x00800100       0x58 load address 0x000007a6
+.data           0x00800100       0x30 load address 0x000007a6
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
- .data.noMovementSpotted
-                0x00800100       0x14 main.o
-                0x00800100                noMovementSpotted
  .data.movementSpotted
-                0x00800114       0x14 main.o
-                0x00800114                movementSpotted
- .data.g_spi_send_data
-                0x00800128       0x14 main.o
-                0x00800128                g_spi_send_data
+                0x00800100       0x14 main.o
+                0x00800100                movementSpotted
  .data.uart_input
-                0x0080013c        0xe main.o
-                0x0080013c                uart_input
+                0x00800114        0xe main.o
+                0x00800114                uart_input
  .data.uart_output
-                0x0080014a        0xe main.o
-                0x0080014a                uart_output
+                0x00800122        0xe main.o
+                0x00800122                uart_output
  *(.gnu.linkonce.d*)
  *(.rodata)
  *(.rodata*)
  *(.gnu.linkonce.r*)
-                0x00800158                . = ALIGN (0x2)
-                0x00800158                _edata = .
-                0x00800158                PROVIDE (__data_end, .)
+                0x00800130                . = ALIGN (0x2)
+                0x00800130                _edata = .
+                0x00800130                PROVIDE (__data_end, .)
 
-.bss            0x00800158       0x1d
-                0x00800158                PROVIDE (__bss_start, .)
+.bss            0x00800130       0x45
+                0x00800130                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  .bss.g_spi_receive_index
-                0x00800158        0x1 main.o
-                0x00800158                g_spi_receive_index
+                0x00800130        0x1 main.o
+                0x00800130                g_spi_receive_index
  .bss.g_spi_index
-                0x00800159        0x1 main.o
-                0x00800159                g_spi_index
+                0x00800131        0x1 main.o
+                0x00800131                g_spi_index
  .bss.g_b_is_transfer_complete
-                0x0080015a        0x1 main.o
-                0x0080015a                g_b_is_transfer_complete
+                0x00800132        0x1 main.o
+                0x00800132                g_b_is_transfer_complete
+ .bss.noMovementSpotted
+                0x00800133       0x14 main.o
+                0x00800133                noMovementSpotted
+ .bss.g_spi_send_data
+                0x00800147       0x14 main.o
+                0x00800147                g_spi_send_data
  *(COMMON)
  COMMON         0x0080015b       0x14 main.o
                 0x0080015b                g_spi_receive_data
@@ -466,7 +466,7 @@ END GROUP
                 0x0080016f                __iob
                 0x00800175                PROVIDE (__bss_end, .)
                 0x000007a6                __data_load_start = LOADADDR (.data)
-                0x000007fe                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000007d6                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800175        0x0
                 [!provide]                PROVIDE (__noinit_start, .)

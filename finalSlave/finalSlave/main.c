@@ -64,9 +64,9 @@ FILE uart_output = FDEV_SETUP_STREAM(USART_Transmit, NULL, _FDEV_SETUP_WRITE);
 FILE uart_input = FDEV_SETUP_STREAM(NULL, USART_Receive, _FDEV_SETUP_READ);
 
 // variables for storing data used in SPI communication
-unsigned char g_spi_send_data[20] = "NO MOVEMENT\n";
+unsigned char g_spi_send_data[20] = "";
 unsigned char movementSpotted[20] = "MOVEMENT\n";
-unsigned char noMovementSpotted[20] = "NO MOVEMENT\n";
+unsigned char noMovementSpotted[20] = "";
 unsigned char g_spi_receive_data[20];
 volatile bool g_b_is_transfer_complete = 0;
 volatile int8_t g_spi_index = 0;
@@ -127,11 +127,6 @@ int main(void)
     /* send message to master and receive message from master */
     while (1) 
     {
-		/*
-		if (movement == true){
-			//strcpy(g_spi_send_data, movementSpotted);
-			memcpy(g_spi_send_data, movementSpotted, strlen(movementSpotted) + 1);
-		}*/
 		
 		if (PIND & (1 << PD7)) {
 			strcpy(g_spi_send_data, movementSpotted);
