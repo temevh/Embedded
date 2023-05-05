@@ -72,6 +72,7 @@ volatile bool g_b_is_transfer_complete = 0;
 volatile int8_t g_spi_index = 0;
 volatile int8_t g_spi_receive_index = 0;
 
+
 bool movement = false;
 
 /* use interrupts to send receive message */
@@ -99,6 +100,7 @@ ISR (SPI_STC_vect)
 
 int main(void)
 {
+	char sec[24];
     /* set MISO as output, pin 12 (PB4)*/
     DDRB  |= (1 << PB4);
     /* set SPI enable (SPE) and interrupt enable (SPIE) */
@@ -123,8 +125,7 @@ int main(void)
     // redirect the stdin and stdout to UART functions
     stdout = &uart_output;
     stdin = &uart_input;
-    
-    /* send message to master and receive message from master */
+	
     while (1) 
     {
 		
