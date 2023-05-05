@@ -78,6 +78,7 @@ int main(void){
 					
 					//changes the lcd screen to "times up"
 					time_is_up();
+					password_put = 0;
 					break;
 				}
 			}
@@ -102,6 +103,7 @@ int main(void){
 			if(password_correct == 1){
 				lcd_clrscr();
 				lcd_puts("Password correct!");
+				password_put = 0;
 				break;
 			}
 		
@@ -109,6 +111,7 @@ int main(void){
 			if(password_wrong == 1){
 				lcd_clrscr();
 				lcd_puts("Wrong password!");
+				password_put = 0;
 				break;
 			}
 		}
