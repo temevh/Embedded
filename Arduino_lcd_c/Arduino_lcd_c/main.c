@@ -22,6 +22,7 @@ uint8_t password_index = 10;
 char keypad_button[2];
 uint8_t password_put = 0;
 
+<<<<<<< HEAD
 int f_buzz = 850;
 int prescaler = 1;
 
@@ -76,6 +77,8 @@ void alarm(int f_buzz, int prescaler) {
 	}
 }
 
+=======
+>>>>>>> cbde323652a3e3b922ef3afb312dde9e14daa5ef
 	
 void time_is_up(){
 	lcd_clrscr();
@@ -84,13 +87,19 @@ void time_is_up(){
 	lcd_puts("Police coming!");
 	_delay_ms(2000);
 	
+<<<<<<< HEAD
 	
+=======
+>>>>>>> cbde323652a3e3b922ef3afb312dde9e14daa5ef
 	//##################################################
 	//call alarm, sound the buzzer
 	//##################################################
 	
+<<<<<<< HEAD
 	alarm(f_buzz, prescaler);
 	
+=======
+>>>>>>> cbde323652a3e3b922ef3afb312dde9e14daa5ef
 	};
 
 int main(void){
