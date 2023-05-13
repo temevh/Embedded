@@ -21,6 +21,9 @@
 #include "keypad.h"
 #include <stdbool.h>
 #include <string.h>
+#include <avr/eeprom.h>
+#include <avr/interrupt.h>
+#include <avr/sleep.h>
 
 //keypad and password variables
 uint8_t Keypress;
@@ -28,7 +31,8 @@ char str[2];
 char password[5];
 char submit[2] = "#";
 char backspace[2] = "*";
-    
+
+//To make sure connection is established, 000 is sent
 char spi_send_data[5] = "000";
 char spi_receive_data[20];
 
@@ -95,6 +99,14 @@ void change_password(char changed_password[], size_t size){
 	}
 }
 
+//Interrupt for the PIR sensor
+ISR(INT0_vect)
+{
+	// Movement detected
+	movementDetected = true;
+}
+
+
 // Setup the stream functions for UART
 FILE uart_output = FDEV_SETUP_STREAM(USART_Transmit, NULL, _FDEV_SETUP_WRITE);
 FILE uart_input = FDEV_SETUP_STREAM(NULL, USART_Receive, _FDEV_SETUP_READ);
@@ -103,14 +115,17 @@ int main(void)
 {
 	init_uart();
 	KEYPAD_Init();
-	//sei();
+	sei();
 	
     /* set MISO as output, pin 12 (PB4)*/
     DDRB  = (1 << PB3);
     /* set SPI enable */
     SPCR  = (1 << 6);
 	
-	// Set PD7 as input
+	EICRA |= (1 << ISC01) | (1 << ISC00); // Trigger INT0 on rising edge
+	EIMSK |= (1 << INT0); // Enable INT0
+	
+	// Set PD7 as input (motion sensor)
 	DDRD &= ~(1 << PIR_SENSOR);
 	
     // initialize the UART with 9600 BAUD
@@ -136,15 +151,20 @@ int main(void)
 		correct_password[address_index] = EEDR;
 	}
 
-    /* send message to master and receive message from master */
+    
     while (1) 
     {
+		//Codes to be sent by the slave to the master
+		//Wrong password -> 444
+		//Correct password -> 333
+		//Give password -> 222
 		int i = 0;
 		
+		//Check if movement is detected by the sensor
 		if (PIND & (1 << PIR_SENSOR)) {
 			movementDetected = true;
 			printf("DETECTED MOVEMENT, GIVE PASSWORD\n");
-			strcpy(spi_send_data, givePass_code);  // Set the spi_send_data to 222
+			strcpy(spi_send_data, givePass_code);  // Set the spi_send_data to code 222
 			printf(spi_send_data);
 			
 		}
@@ -181,18 +201,16 @@ int main(void)
 					password[i] = str[0];
 					i++;
 				}
+				//Print the password to console for debugging purposes
 				printf("\nPaswd: %s\n", password);
 
 			}
 
 			password[4] = '\0';
 			printf("\nPassword entered: %s\n", password);
-			//Wrong pass -> 444
-			//Correct pass -> 333
-			//Give pass -> 222
 			if (strcmp(correct_password, password) != 0) {
 				printf("Incorrect password.\n");
-				strcpy(spi_send_data, inCorrect_code);
+				strcpy(spi_send_data, inCorrect_code);  //Set the data to be sent to be the code for incorrect password
 				printf(spi_send_data);
 				
 				for(int8_t spi_data_index = 0; spi_data_index < sizeof(spi_send_data); spi_data_index++)
@@ -201,10 +219,11 @@ int main(void)
 					while(!(SPSR & (1 << SPIF))){;}
 					spi_receive_data[spi_data_index] = SPDR; // receive byte from the SPI data register
 				}
-				passwordCorrect = true;
+				//passwordCorrect = true;
+				
 			}else {
 				printf("Correct password.\n");
-				strcpy(spi_send_data, correct_code);
+				strcpy(spi_send_data, correct_code); //Set the data to be sent to be the code for correct password
 
 				for(int8_t spi_data_index = 0; spi_data_index < sizeof(spi_send_data); spi_data_index++)
 				{
@@ -216,7 +235,7 @@ int main(void)
 			}
 		}
 		
-		//
+		
     }
 
     return 0;

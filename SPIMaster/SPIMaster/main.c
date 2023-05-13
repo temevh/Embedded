@@ -1,12 +1,3 @@
-/*
- * mega_SPI_master_basics.c
- *
- * Created: 4.7.2019 8:52:14
- * Author : Glutex
- */ 
-
-/* ATmega2560 (MEGA2560) is master */
-
 #define F_CPU 16000000UL
 #define FOSC 16000000UL // Clock Speed
 #define BAUD 9600
@@ -32,6 +23,7 @@ int prescaler = 1;
 unsigned char spi_send_data[20] = "";
 unsigned char spi_receive_data[20];
 
+//Functions to use the LCD
 void LCD_Command(unsigned char cmnd)
 {
 	PORTD = (PORTD & 0x0F) | (cmnd & 0xF0); // Sending upper nibble
@@ -147,6 +139,7 @@ static char USART_Receive(FILE *stream)
     return UDR0;
 }
 
+//Debugging function
 void init_uart(void);
 
 int TOP_value (int f_buzz, int scale)
@@ -156,6 +149,7 @@ int TOP_value (int f_buzz, int scale)
 	return TOP;
 }
 
+//Interrupt for the timer
 ISR(TIMER1_COMPA_vect)
 {
 	TCNT1 = 0;
@@ -208,6 +202,7 @@ void time_is_up(){
 	//alarm(f_buzz, prescaler);
 };
 
+//Function that is triggered when the slave-board sends a 222 code (movement detected)
 bool start_timer(){
 	LCD_Init();
 
@@ -233,21 +228,18 @@ bool start_timer(){
 		 PORTB |= (1 << PB2); // SS HIGH
 		
 		if (spi_receive_data[0] == '3') {
-			LCD_Clear();
-			
-			LCD_Print("Correct pass!");
-			return true;
+			return true;  //If user enters the correct pass, return true
 		} else if (spi_receive_data[0] == '4') {
 			LCD_Clear();
 			LCD_Print("Incorrect pass!");
 			_delay_ms(3000);
-			return false;
+			return false; //If user enters the incorrect pass, return false
 		}
 		
 	}
 
 	LCD_Clear(); // clear the display
-	return false;
+	return false; //If user doesnt enter the correct password on time, return false
 
 }
 
@@ -297,6 +289,7 @@ int main(void)
 		
 		bool passwordCorrect;
 		
+		//If the board receives a code 222 (movement detected) from the slave
 		if (spi_receive_data[0] == '2') {
 			printf(spi_receive_data);
 			LCD_Clear();
@@ -307,12 +300,12 @@ int main(void)
 				LCD_Print_Row("POLICE!", 1);
 				alarm(f_buzz, prescaler);
 			} else{
+				LCD_Clear();
 				LCD_Print_Row("Correct pass", 0);
 			}
 
 		} 
-		
-
+	
 	}
     return 0;
 }
