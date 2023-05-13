@@ -158,6 +158,7 @@ int main(void)
         }
 		
         if(movementDetected == true){
+			
 			for(int8_t spi_data_index = 0; spi_data_index < sizeof(spi_send_data); spi_data_index++)
 			{
 				SPDR = spi_send_data[spi_data_index]; // send byte using SPI data register
@@ -166,6 +167,7 @@ int main(void)
 			}
 			//printf(spi_receive_data);
 			while(passwordCorrect == false){
+				printf("FLAG1");
 				Keypress = KEYPAD_GetKey();
 				//turns uint_8 to char
 				sprintf(str, "%c", Keypress);
@@ -181,12 +183,13 @@ int main(void)
 					password[i] = str[0];
 					i++;
 				}
+				/*
 				for(int8_t spi_data_index = 0; spi_data_index < sizeof(spi_send_data); spi_data_index++)
 				{
 					SPDR = spi_send_data[spi_data_index]; // send byte using SPI data register
 					while(!(SPSR & (1 << SPIF))){;}
 					spi_receive_data[spi_data_index] = SPDR; // receive byte from the SPI data register
-				}
+				}*/
 				//strcpy(spi_send_data, password);
 				printf("\nPaswd: %s\n", password);
 
@@ -198,7 +201,7 @@ int main(void)
 			//Correct pass -> 333
 			//Give pass -> 222
 
-
+			printf("FLAG 2");
 			if (strcmp(correct_password, password) != 0) {
 				printf("Incorrect password.\n");
 				strcpy(spi_send_data, inCorrect_code);
@@ -211,13 +214,26 @@ int main(void)
 					spi_receive_data[spi_data_index] = SPDR; // receive byte from the SPI data register
 				}
 				passwordCorrect = true;
-			}
-			else {
+			}else {
+				printf("Correct password.\n");
 				strcpy(spi_send_data, correct_code);
+				printf("FLAG 3");
+				printf("FLAG 4");
 				printf(spi_send_data);
+				printf("FLAG 5");
+				for(int8_t spi_data_index = 0; spi_data_index < sizeof(spi_send_data); spi_data_index++)
+				{
+					SPDR = spi_send_data[spi_data_index]; // send byte using SPI data register
+					while(!(SPSR & (1 << SPIF))){;}
+					spi_receive_data[spi_data_index] = SPDR; // receive byte from the SPI data register
+				}
+				printf("FLAG 6");
 				passwordCorrect = true;
+				printf("FLAG 7");
 			}
 		}
+		
+		//
     }
 
     return 0;
