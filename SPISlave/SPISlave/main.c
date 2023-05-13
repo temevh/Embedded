@@ -220,7 +220,6 @@ int main(void)
 					spi_receive_data[spi_data_index] = SPDR; // receive byte from the SPI data register
 				}
 				//passwordCorrect = true;
-				
 			}else {
 				printf("Correct password.\n");
 				strcpy(spi_send_data, correct_code); //Set the data to be sent to be the code for correct password

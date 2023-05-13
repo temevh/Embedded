@@ -303,8 +303,10 @@ int main(void)
 				LCD_Clear();
 				LCD_Print_Row("Correct pass", 0);
 			}
-
-		} 
+		} else if (spi_receive_data[0] == '1'){
+			LCD_Clear();
+			LCD_Print_Row("RESET", 0);
+		}
 	
 	}
     return 0;
