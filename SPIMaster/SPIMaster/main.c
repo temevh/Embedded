@@ -234,7 +234,7 @@ bool start_timer(){
 		
 		if (spi_receive_data[0] == '3') {
 			LCD_Clear();
-			//printf("FLAG 5");
+			
 			LCD_Print("Correct pass!");
 			return true;
 		} else if (spi_receive_data[0] == '4') {
