@@ -214,15 +214,12 @@ bool start_timer(){
 	int count = 30; // start timer at 30 seconds
 	LCD_Print_Row("GIVE PASS", 0);
 	while(count >= 0) {
-		printf("FLAG 1");
 		char buffer[16];
 		snprintf(buffer, sizeof(buffer), "Time: %02d sec", count); // format timer value
 		LCD_Print_Row(buffer, 1);
 		_delay_ms(1000); // wait for 1 second
 		count--; // decrement timer
 		
-
-		printf("FLAG 2");
 		
 		 PORTB &= ~(1 << PB2); // SS LOW
 		 
@@ -235,17 +232,13 @@ bool start_timer(){
 		 
 		 PORTB |= (1 << PB2); // SS HIGH
 		
-		printf("FLAG 3");
-		printf("data is" , spi_receive_data, "\n");
-		printf("FLAG 4");
 		if (spi_receive_data[0] == '3') {
 			LCD_Clear();
-			printf("FLAG 5");
+			//printf("FLAG 5");
 			LCD_Print("Correct pass!");
 			return true;
 		} else if (spi_receive_data[0] == '4') {
 			LCD_Clear();
-			printf("FLAG 6");
 			LCD_Print("Incorrect pass!");
 			_delay_ms(3000);
 			return false;
@@ -254,7 +247,7 @@ bool start_timer(){
 	}
 
 	LCD_Clear(); // clear the display
-	return true;
+	return false;
 
 }
 
@@ -285,10 +278,6 @@ int main(void)
     // redirect the stdin and stdout to UART functions
     stdout = &uart_output;
     stdin = &uart_input;
-    /*
-    unsigned char spi_send_data[20] = "";
-    unsigned char spi_receive_data[20];
-    /*
 	
     /* send message to slave and receive message from slave */
     while (1) 
